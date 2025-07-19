@@ -14,7 +14,7 @@ import { CarEntity } from './car/car.entity';
       host: 'localhost',         // ou o IP do container Docker, ex: '172.17.0.2'
       port: 3306,
       username: 'root',
-      password: '3D3Rh3nriqu3',  // sua senha do container
+      password: 'SENHA',  // sua senha do container
       database: 'crudNestJS',
       entities: [CarEntity],
       synchronize: true,         // cuidado com `true` em produção
