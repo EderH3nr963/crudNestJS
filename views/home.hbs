@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    main {
+      width: 700px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #float-button {
+      width: 56px;
+      height: 56px;
+      background-color: #4a4ae9;
+      border-radius: 50%;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    #table {
+      width: 100%;
+      max-width: 700px;
+    }
+
+    .message-or-error {
+      border-radius: 8px;
+      padding: 12px 20px;
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      animation: fadeInOut 3s ease-in-out forwards;
+    }
+
+    @keyframes fadeInOut {
+      0% {
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>Cars</h1>
+
+    {{#if cars.length}}
+    <table class="table" id="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Model</th>
+          <th scope="col">Brand</th>
+          <th scope="col">Year</th>
+          <th scope="col">Update</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each cars}}
+        <tr>
+          <th scope="row">{{id}}</th>
+          <td>{{model}}</td>
+          <td>{{brand}}</td>
+          <td>{{year}}</td>
+          <td>
+            <button class="btn btn-primary btn-sm" onclick="window.location = '/car/update/{{id}}'">Edit</button>
+          </td>
+          <td>
+            <button class="btn btn-danger btn-sm" onclick="window.location = '/car/delete/{{id}}'">Delete</button>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{else if message}}
+    <div class="alert alert-info text-center mt-4" role="alert">
+      {{message}}
+    </div>
+    {{/if}}
+
+    <button id="float-button" onclick="window.location = '/car/add_car'">
+      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="white" class="bi bi-plus-lg"
+        viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+          d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+      </svg>
+    </button>
+
+    {{#ifOr message error}}
+    <div class="message-or-error alert {{#if error}}alert-danger{{else}}alert-success{{/if}}" role="alert" aria-live="assertive">
+      {{message}}{{error}}
+    </div>
+    {{/ifOr}}
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
